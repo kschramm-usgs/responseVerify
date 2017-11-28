@@ -30,13 +30,14 @@ print(etime.julday)
 
 
 # information about the sensors.
+samprate=200.
 network = "XX"
-station = ["TST1","GSN1"]
+station = ["TST1","TST6"]
 #station = ["TST1"]
-channel = ["00","10"]
-component = ["EH0","EHZ"]
+channel = ["00","00"]
+component = ["EH0","EH0"]
 #component = ["BH0","BH0"]
-sensor = ["STS-2HG","T-360"]
+sensor = ["STS-2HG","T-compact"]
 labelRef="reference sensor: "+ sensor[0]
 labelNom="test sensor: "+ sensor[1]
 respFile=["responses/RESP."+network+"."+station[0]+"."+channel[0]+"."+component[0],
@@ -94,7 +95,6 @@ trNomAcc=stNomAcc[0]
 print('removed nom response')
 
 # define a few things for the spectral calculations 
-samprate=200.
 trLength=trRefAcc.data.size
 print('trace length:i '+str(trLength))
 po2=trLength.bit_length()
@@ -164,7 +164,6 @@ plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 
 # define a few things for the spectral calculations
-samprate=40.
 nsegments=4.
 trLength=trRef.data.size
 print(trLength)
@@ -222,7 +221,8 @@ plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 #plot the response removed waveforms
 plt.figure(figsize=(11,8.5))
 plt.suptitle('Data comparison')
-t1=(np.linspace(0,trNom.data.size,num=trNom.data.size))/samprate
+print(trNom.data.size/samprate)
+t1=(np.linspace(0,(trNom.data.size/samprate),num=trNom.data.size))
 #plt.figure(figsize=(11,8.5))
 plt.subplot(311)
 plt.plot(t1,stRefRaw[0],'r',label=labelRef)
@@ -239,9 +239,8 @@ plt.xlabel('Time [s]')
 plt.title('response removed data')
 plt.subplot(313)
 #plt.plot(t1,trNom.data-trRef.data,'b',label='trace difference')
-plt.plot(t1,trNom.data,'b',label=labelNom)
-plt.plot(t1,trRef.data,'r',label=labelRef)
-plt.xlim(1900,2400)
+plt.plot(t1[76000:96000],trNom.data[76000:96000],'b',label=labelNom)
+plt.plot(t1[76000:96000],trRef.data[76000:96000],'r',label=labelRef)
 #plt.title('difference in response removed data')
 plt.title('response removed data,zoomed')
 plt.ylabel('Displacement')
@@ -252,4 +251,4 @@ plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 #plt.title(station[1] + ' r
 #
-#plt.show()
+plt.show()
