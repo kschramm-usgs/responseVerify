@@ -119,7 +119,7 @@ deltaMag = np.log10(fftRefMag)-np.log10(fftNomMag)
 deltaPha = fftRefPha-fftNomPha
 
 #need to plot the results from the FFT
-plt.figure(figsize=(8.5,6))
+plt.figure(figsize=(8.5,5))
 plt.suptitle('FFT amplitude')
 plt.subplot(211)
 plt.loglog(1/fftNomFreq,fftNomMag,'b',label=labelRef )
@@ -144,7 +144,8 @@ string='Magnitude_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+cha
 plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 
-plt.figure(figsize=(11,8.5))
+#plt.figure(figsize=(11,8.5))
+plt.figure(figsize=(8.5,5))
 plt.suptitle('FFT phase')
 plt.subplot(211)
 plt.semilogx(1/fftNomFreq,fftNomPha,'b',label= labelNom)
@@ -186,7 +187,8 @@ deltaPSD = 10*np.log10(PSDRef)-10*np.log10(PSDNom)
 
 #plot it up
 
-plt.figure(figsize=(11,8.5))
+#plt.figure(figsize=(11,8.5))
+plt.figure(figsize=(8.5,5))
 plt.title('PSD in displacement')
 plt.subplot(211)
 #plt.semilogx(1/PSDfreqs,(PSDNom),'b',label=labelNom)
@@ -218,7 +220,8 @@ plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 #
 
 #plot the response removed waveforms
-plt.figure(figsize=(11,8.5))
+#plt.figure(figsize=(11,8.5))
+plt.figure(figsize=(8.5,5))
 plt.suptitle('Data comparison')
 print(trNom.data.size/samprate)
 t1=(np.linspace(0,(trNom.data.size/samprate),num=trNom.data.size))
