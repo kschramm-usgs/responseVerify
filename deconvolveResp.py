@@ -218,8 +218,14 @@ plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 #plt.ylabel('Power spectral density \n [dB relative to 1 m/s^2]')
 #
+#filter data for plotting
+trNomfilt10=trNom.copy()
+trNomfilt10.detrend('linear') #literally picking because SAC
+trNomfilt10.taper(0.5)
+trNomfilt10.filter("highpass",freq=0.1)
 
 #plot the response removed waveforms
+
 #plt.figure(figsize=(11,8.5))
 plt.figure(figsize=(8.5,5))
 plt.suptitle('Data comparison')
@@ -234,7 +240,7 @@ plt.title('Raw data')
 plt.ylabel('Counts')
 plt.xlabel('Time [s]')
 plt.subplot(312)
-plt.plot(t1,trNom.data,'b',label=labelNom)
+plt.plot(t1,trNomfilt10.data,'b',label=labelNom)
 plt.plot(t1,trRef.data,'r',label=labelRef)
 plt.ylabel('Displacement')
 plt.xlabel('Time [s]')
