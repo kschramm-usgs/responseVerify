@@ -37,8 +37,8 @@ channel = ["00","10"]
 component = ["EH0","EHZ"]
 sensor = ["STS-2HG","T-360"]
 
-labelRef="reference sensor: "+ sensor[0]
-labelNom="test sensor: "+ sensor[1]
+labelRef="reference sensor: "+ sensor[0] + ' on ' + station[0]
+labelNom="test sensor: "+ sensor[1] + ' on ' + station[1]
 respFile=["responses/RESP."+network+"."+station[0]+"."+channel[0]+"."+component[0],
 "responses/RESP."+network+"."+station[1]+"."+channel[1]+"."+component[1]]
 print(respFile)
