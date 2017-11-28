@@ -20,9 +20,10 @@ def ReadTwoColumnFile(file_name):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-stime=UTCDateTime('2017-321T20:0400.0Z')
-etime=UTCDateTime('2017-321T20:1400.0Z')
+stime=UTCDateTime('2017-319T21:3900.0Z')
+etime=UTCDateTime('2017-319T21:5000.0Z')
 #etime=stime+10000
+doy='319'
 
 print(stime.julday)
 print(etime.julday)
@@ -30,19 +31,19 @@ print(etime.julday)
 
 # information about the sensors.
 network = "XX"
-station = ["TST1","TST1"]
+station = ["TST1","TST6"]
 #station = ["TST1"]
-channel = ["00","10"]
+channel = ["00","00"]
 component = ["EH0","EH0"]
 #component = ["BH0","BH0"]
-sensor = ["STS-2HG","STS-1"]
+sensor = ["STS-2HG","T-compact"]
 labelRef="reference sensor: "+ sensor[0]
 labelNom="test sensor: "+ sensor[1]
 respFile=["responses/RESP."+network+"."+station[0]+"."+channel[0]+"."+component[0],
 "responses/RESP."+network+"."+station[1]+"."+channel[1]+"."+component[1]]
 print(respFile)
-fileName=['/msd/'+network+'_'+station[0]+'/2017/321/'+channel[0]+'_'+component[0]+'.512.seed',
-'/msd/'+network+'_'+station[1]+'/2017/321/'+channel[1]+'_'+component[1]+'.512.seed']
+fileName=['/msd/'+network+'_'+station[0]+'/2017/'+doy+'/'+channel[0]+'_'+component[0]+'.512.seed',
+'/msd/'+network+'_'+station[1]+'/2017/'+doy+'/'+channel[1]+'_'+component[1]+'.512.seed']
 print(fileName[0])
 
 #respFile=['RESP.XX.TST1.00.EH0','STS-1_Q330HR_BH_20']
@@ -56,7 +57,7 @@ st = Stream()
 
 st=read(fileName[0],starttime=stime, endtime=etime)
 stRef=st.copy()
-st.plot()
+#st.plot()
 stRefAcc=stRef.copy()
 stRefRaw=stRef.copy()
 
@@ -250,4 +251,4 @@ plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 #plt.title(station[1] + ' r
 #
-plt.show()
+#plt.show()
