@@ -119,7 +119,7 @@ deltaMag = np.log10(fftRefMag)-np.log10(fftNomMag)
 deltaPha = fftRefPha-fftNomPha
 
 #need to plot the results from the FFT
-plt.figure(figsize=(11,8.5))
+plt.figure(figsize=(8.5,6))
 plt.suptitle('FFT amplitude')
 plt.subplot(211)
 plt.loglog(1/fftNomFreq,fftNomMag,'b',label=labelRef )
