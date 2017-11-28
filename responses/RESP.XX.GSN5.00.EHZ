@@ -1,6 +1,6 @@
-#               << RESP_VER    RESP.XX.NS086..BHZ.STS2_gen3.120.20000    2013.353    UPDATED    Corrected gen 3 pole exponents @ 2317 Hz >>
-#               << RESP_VER    RESP.XX.NS086..BHZ.STS2_gen3.120.20000    2008.358    NEW     >>
-#               << RESP_VER    RESP.XX.NS086..BHZ.STS2_gen3.120.20000    2014.027    UPDATED    Added mixer pole. >>
+#               << RESP_VER    RESP.XX.NS085..BHZ.STS2_gen3.120.1500    2013.353    UPDATED    Corrected gen 3 pole exponents @ 2317 Hz >>
+#               << RESP_VER    RESP.XX.NS085..BHZ.STS2_gen3.120.1500    2008.358    NEW     >>
+#               << RESP_VER    RESP.XX.NS085..BHZ.STS2_gen3.120.1500    2014.027    UPDATED    Added mixer pole. >>
 #        << IRIS SEED Reader, Release 4.8 >>
 #
 #
@@ -13,7 +13,7 @@ B052F22     Start date:  2006,001,00:00:00.0000
 B052F23     End date:    No Ending Time
 #        =======================================
 #        +               +--------------------------------------------+                +
-#        +               |   Response (Poles & Zeros), NS086 ch BHZ   |                +
+#        +               |   Response (Poles & Zeros), NS085 ch BHZ   |                +
 #        +               +--------------------------------------------+                +
 #
 B053F03     Transfer function type:                A [Laplace Transform (Rad/sec)]
@@ -47,16 +47,16 @@ B053F15-18    9 -1.330000e+04  0.000000e+00  0.000000E+00  0.000000E+00
 B053F15-18   10 -2.550970e+02  0.000000e+00  0.000000E+00  0.000000E+00
 #        
 #        +                  +---------------------------------------+                  +
-#        +                  |       Channel Gain, NS086 ch BHZ      |                  +
+#        +                  |       Channel Gain, NS085 ch BHZ      |                  +
 #        +                  +---------------------------------------+                  +
 #        
 B058F03     Stage sequence number:                 1
-B058F04     Gain:                                  2.000000e+04
+B058F04     Gain:                                  1.500000e+03
 B058F05     Frequency of gain:                     1.000000e+00 HZ
 B058F06     Number of calibrations:                0
 #        
 #        +               +-------------------------------------------+                 +
-#        +               |   Response (Coefficients), NS086 ch BHZ   |                 +
+#        +               |   Response (Coefficients), NS085 ch BHZ   |                 +
 #        +               +-------------------------------------------+                 +
 #        
 B054F03     Transfer function type:                D
@@ -70,7 +70,7 @@ B054F10     Number of denominators:                0
 B054F08-09    0  1.000000e+00  0.000000E+00
 #        
 #        +                      +------------------------------+                       +
-#        +                      |   Decimation, NS086 ch BHZ   |                       +
+#        +                      |   Decimation, NS085 ch BHZ   |                       +
 #        +                      +------------------------------+                       +
 #        
 B057F03     Stage sequence number:                 2
@@ -81,7 +81,7 @@ B057F07     Estimated delay (seconds):             0.00000E+00
 B057F08     Correction applied (seconds):          0.00000E+00
 #        
 #        +                  +---------------------------------------+                  +
-#        +                  |       Channel Gain, NS086 ch BHZ      |                  +
+#        +                  |       Channel Gain, NS085 ch BHZ      |                  +
 #        +                  +---------------------------------------+                  +
 #        
 B058F03     Stage sequence number:                 2
@@ -90,11 +90,11 @@ B058F05     Frequency of gain:                     1.000000e+00 HZ
 B058F06     Number of calibrations:                0
 #        
 #        +                  +---------------------------------------+                  +
-#        +                  |       Channel Gain, NS086 ch BHZ      |                  +
+#        +                  |       Channel Gain, NS085 ch BHZ      |                  +
 #        +                  +---------------------------------------+                  +
 #        
 B058F03     Stage sequence number:                 0
-B058F04     Sensitivity:                           3.355442e+10
+B058F04     Sensitivity:                           2.5165815e+09
 B058F05     Frequency of sensitivity:              1.000000e+00 HZ
 B058F06     Number of calibrations:                0
 #        
