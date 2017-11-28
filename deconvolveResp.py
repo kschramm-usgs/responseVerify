@@ -94,7 +94,7 @@ trNomAcc=stNomAcc[0]
 print('removed nom response')
 
 # define a few things for the spectral calculations 
-samprate=40.
+samprate=200.
 trLength=trRefAcc.data.size
 print('trace length:i '+str(trLength))
 po2=trLength.bit_length()
