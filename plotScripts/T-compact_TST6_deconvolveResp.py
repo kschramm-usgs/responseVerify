@@ -29,15 +29,14 @@ print(stime.julday)
 print(etime.julday)
 
 
-# information about the sensors.
+# information about the sensors. edit before running
 samprate=200.
 network = "XX"
 station = ["TST1","TST6"]
-#station = ["TST1"]
 channel = ["00","00"]
 component = ["EH0","EH0"]
-#component = ["BH0","BH0"]
 sensor = ["STS-2HG","T-compact"]
+
 labelRef="reference sensor: "+ sensor[0]
 labelNom="test sensor: "+ sensor[1]
 respFile=["responses/RESP."+network+"."+station[0]+"."+channel[0]+"."+component[0],
@@ -120,7 +119,7 @@ deltaMag = np.log10(fftRefMag)-np.log10(fftNomMag)
 deltaPha = fftRefPha-fftNomPha
 
 #need to plot the results from the FFT
-plt.figure(figsize=(11,8.5))
+plt.figure(figsize=(8.5,5))
 plt.suptitle('FFT amplitude')
 plt.subplot(211)
 plt.loglog(1/fftNomFreq,fftNomMag,'b',label=labelRef )
@@ -128,13 +127,13 @@ plt.loglog(1/fftRefFreq,fftRefMag,'r',label=labelNom)
 plt.grid(True, which='both')
 plt.legend()
 plt.xlabel('Period [seconds]')
-plt.ylabel('Magnitude (acceleration)')
+plt.ylabel('Magnitude \n (acceleration)')
 plt.subplot(212)
 plt.grid(True, which='both')
 #plt.loglog(1/fftNomFreq,deltaMag,'g')
 plt.semilogx(1/fftNomFreq,(deltaMag),'g')
 plt.xlabel('Period [seconds]')
-plt.ylabel('Magnitude difference of log values')
+plt.ylabel('Magnitude difference \n of log values')
 #plt.subplot(313)
 #plt.grid(True, which='both')
 ##plt.loglog(1/fftNomFreq,deltaMag,'g')
@@ -145,7 +144,8 @@ string='Magnitude_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+cha
 plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 
-plt.figure(figsize=(11,8.5))
+#plt.figure(figsize=(11,8.5))
+plt.figure(figsize=(8.5,5))
 plt.suptitle('FFT phase')
 plt.subplot(211)
 plt.semilogx(1/fftNomFreq,fftNomPha,'b',label= labelNom)
@@ -187,7 +187,8 @@ deltaPSD = 10*np.log10(PSDRef)-10*np.log10(PSDNom)
 
 #plot it up
 
-plt.figure(figsize=(11,8.5))
+#plt.figure(figsize=(11,8.5))
+plt.figure(figsize=(8.5,5))
 plt.title('PSD in displacement')
 plt.subplot(211)
 #plt.semilogx(1/PSDfreqs,(PSDNom),'b',label=labelNom)
@@ -201,25 +202,26 @@ print(len(PSDNom))
 plt.legend()
 plt.grid(True, which='both')
 plt.xlabel('Period [seconds]')
-#plt.ylabel('Power spectral density [dB relative to 1 m]')
-plt.ylabel('Power spectral density [dB relative to 1 m/s^2]')
+#plt.ylabel('Power spectral density \n [dB relative to 1 m]')
+plt.ylabel('Power spectral density \n [dB relative to 1 m/s^2]')
 plt.title('PSD response validation')
 plt.subplot(212)
 plt.semilogx(1/PSDfreqs,deltaPSD,'g')
 #plt.semilogx(1/PSDfreqs,10*np.log10(deltaPSD),'g')
 plt.xlabel('Period [seconds]')
-#plt.ylabel('Power spectral density [dB relative to 1 m]')
-plt.ylabel('Power spectral density [dB relative to 1 m/s^2]')
+#plt.ylabel('Power spectral density \n [dB relative to 1 m]')
+plt.ylabel('Power spectral density \n [dB relative to 1 m/s^2]')
 plt.title('PSD difference')
 plt.grid(True, which='both')
 string='PSD_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+channel[1]+'_'+sensor[1]
 plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
-#plt.ylabel('Power spectral density [dB relative to 1 m/s^2]')
+#plt.ylabel('Power spectral density \n [dB relative to 1 m/s^2]')
 #
 
 #plot the response removed waveforms
-plt.figure(figsize=(11,8.5))
+#plt.figure(figsize=(11,8.5))
+plt.figure(figsize=(8.5,5))
 plt.suptitle('Data comparison')
 print(trNom.data.size/samprate)
 t1=(np.linspace(0,(trNom.data.size/samprate),num=trNom.data.size))
