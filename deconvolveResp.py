@@ -237,7 +237,7 @@ trNomfilt10.filter("highpass",freq=10.)
 trNomfilt100=trNom.copy()
 trNomfilt100.detrend('linear') #literally picking because SAC
 trNomfilt100.taper(0.1)
-trNomfilt100.filter("highpass",freq=100.)
+trNomfilt100.filter("highpass",freq=50.)
 
 trReffiltp1=trRef.copy()
 trReffiltp1.detrend('linear') #literally picking because SAC
@@ -257,7 +257,7 @@ trReffilt10.filter("highpass",freq=10.)
 trReffilt100=trRef.copy()
 trReffilt100.detrend('linear') #literally picking because SAC
 trReffilt100.taper(0.1)
-trReffilt100.filter("highpass",freq=100.)
+trReffilt100.filter("highpass",freq=50.)
 
 #get the x-axis in seconds
 t1=(np.linspace(0,(trNom.data.size/samprate),num=trNom.data.size))
@@ -328,7 +328,7 @@ filt10Z.plot(t1[80000:81000],trReffilt10.data[80000:81000],'r',label=labelRef)
 filt100=fig.add_subplot(6,2,11)
 filt100.plot(t1,trNomfilt100.data,'b',label=labelNom)
 filt100.plot(t1,trReffilt100.data,'r',label='highpass 10 s')
-filt100.set_ylabel('Filtered,100 Hz, \nDisplacement')
+filt100.set_ylabel('Filtered,50 Hz, \nDisplacement')
 
 filt100Z=fig.add_subplot(6,2,12)
 filt100Z.plot(t1[80000:81000],trNomfilt100.data[80000:81000],'b',label=labelNom)
