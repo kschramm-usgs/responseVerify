@@ -266,7 +266,7 @@ t1=(np.linspace(0,(trNom.data.size/samprate),num=trNom.data.size))
 
 #plot the response removed waveforms
 fig =plt.figure(figsize=(11,8.5))
-fig.suptitle('Data comparison')
+#fig.suptitle('Data comparison')
 fig.subplots_adjust(wspace=0.11,hspace=0.45)
 
 # first plot up the raw data
@@ -337,7 +337,7 @@ filt100.set_xlabel('Time [s]')
 filt100Z.set_xlabel('Time [s]')
 
 handles,labels = filt100.get_legend_handles_labels()
-fig.legend(handles,labels,loc='upper center',ncol=2,mode='expand')
+fig.legend(handles,labels,loc='upper center',ncol=2)
 
 # save the figure
 string='Data_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+channel[1]+'_'+sensor[1]
