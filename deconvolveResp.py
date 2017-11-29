@@ -267,7 +267,8 @@ t1=(np.linspace(0,(trNom.data.size/samprate),num=trNom.data.size))
 #plot the response removed waveforms
 fig =plt.figure(figsize=(11,8.5))
 fig.suptitle('Data comparison')
-fig.subplots_adjust(wspace=0,hspace=0)
+fig.subplots_adjust(wspace=0.11,hspace=0.17)
+
 # first plot up the raw data
 rdata=fig.add_subplot(421)
 rdata.plot(t1,stRefRaw[0],'r',label=labelRef)
@@ -291,6 +292,10 @@ noResp.set_ylabel('Resp removed, \nDisplacement')
 noRespZ=fig.add_subplot(424)
 noRespZ.plot(t1[76000:96000],trNom.data[76000:96000],'b',label=labelNom)
 noRespZ.plot(t1[76000:96000],trRef.data[76000:96000],'r',label=labelRef)
+from matplotlib.ticker import EngFormatter
+#formatter1= EngFormatter(places=1)
+formatter1= EngFormatter(places=1, sep='\N{THIN SPACE}')
+noRespZ.xaxis.set_major_formatter(formatter1)
 #noRespZ.tick_params(labelleft='off')
 ## now the .1 hz filtered data
 filtp1=fig.add_subplot(425)
