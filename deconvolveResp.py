@@ -219,42 +219,86 @@ plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 #plt.ylabel('Power spectral density \n [dB relative to 1 m/s^2]')
 #
 #filter data for plotting
+trNomfiltp1=trNom.copy()
+trNomfiltp1.detrend('linear') #literally picking because SAC
+trNomfiltp1.taper(0.1)
+trNomfiltp1.filter("highpass",freq=0.1)
+
+trNomfilt1=trNom.copy()
+trNomfilt1.detrend('linear') #literally picking because SAC
+trNomfilt1.taper(0.1)
+trNomfilt1.filter("highpass",freq=1.)
+
 trNomfilt10=trNom.copy()
 trNomfilt10.detrend('linear') #literally picking because SAC
 trNomfilt10.taper(0.1)
-trNomfilt10.filter("highpass",freq=0.1)
+trNomfilt10.filter("highpass",freq=10.)
+
+trNomfilt100=trNom.copy()
+trNomfilt100.detrend('linear') #literally picking because SAC
+trNomfilt100.taper(0.1)
+trNomfilt100.filter("highpass",freq=100.)
+
+trReffiltp1=trRef.copy()
+trReffiltp1.detrend('linear') #literally picking because SAC
+trReffiltp1.taper(0.1)
+trReffiltp1.filter("highpass",freq=0.1)
+
+trReffilt1=trRef.copy()
+trReffilt1.detrend('linear') #literally picking because SAC
+trReffilt1.taper(0.1)
+trReffilt1.filter("highpass",freq=1.)
 
 trReffilt10=trRef.copy()
 trReffilt10.detrend('linear') #literally picking because SAC
 trReffilt10.taper(0.1)
-trReffilt10.filter("highpass",freq=0.1)
+trReffilt10.filter("highpass",freq=10.)
+
+trReffilt100=trRef.copy()
+trReffilt100.detrend('linear') #literally picking because SAC
+trReffilt100.taper(0.1)
+trReffilt100.filter("highpass",freq=100.)
+
+#get the x-axis in seconds
+t1=(np.linspace(0,(trNom.data.size/samprate),num=trNom.data.size))
+# would like to actually get times one of these days... maybe Austin knows?
+#t1=t1+stime
 
 #plot the response removed waveforms
 #plt.figure(figsize=(11,8.5))
-plt.figure(figsize=(8.5,5))
+#plt.figure(figsize=(8.5,11))
+#fig,axes = plt.subplots(nrows=4, ncols=1)
+#plt.tight_layout()
 plt.suptitle('Data comparison')
 print(trNom.data.size/samprate)
-t1=(np.linspace(0,(trNom.data.size/samprate),num=trNom.data.size))
-#plt.figure(figsize=(11,8.5))
-plt.subplot(311)
+plt.subplot(411)
 plt.plot(t1,stRefRaw[0],'r',label=labelRef)
 plt.plot(t1,stNomRaw[0],'b',label=labelNom)
 plt.legend()
 plt.title('Raw data')
 plt.ylabel('Counts')
 plt.xlabel('Time [s]')
-plt.subplot(312)
-plt.plot(t1,trNomfilt10.data,'b',label=labelNom)
-plt.plot(t1,trReffilt10.data,'r',label='highpass 10 s')
+plt.subplot(412)
+plt.plot(t1,trNomfilt1.data,'b',label=labelNom)
+plt.plot(t1,trReffilt1.data,'r',label='highpass 10 s')
 plt.ylabel('Displacement')
 plt.xlabel('Time [s]')
-plt.title('response removed data, highpass 10s ')
-plt.subplot(313)
+plt.title('response removed data, highpass 1 Hz')
+plt.subplot(413)
 #plt.plot(t1,trNom.data-trRef.data,'b',label='trace difference')
-plt.plot(t1[76000:96000],trNomfilt10.data[76000:96000],'b',label=labelNom)
-plt.plot(t1[76000:96000],trReffilt10.data[76000:96000],'r',label=labelRef)
+plt.plot(t1[76000:96000],trNomfiltp1.data[76000:96000],'b',label=labelNom)
+plt.plot(t1[76000:96000],trReffiltp1.data[76000:96000],'r',label=labelRef)
 #plt.title('difference in response removed data')
-plt.title('response removed data,zoomed, highpass 10s')
+plt.title('response removed data,zoomed, highpass 0.1Hz')
+plt.ylabel('Displacement')
+#plt.ylabel('Acceleration [m/s^2]')
+plt.xlabel('Time [s]')
+plt.subplot(414)
+#plt.plot(t1,trNom.data-trRef.data,'b',label='trace difference')
+plt.plot(t1[76000:96000],trNomfilt1.data[76000:96000],'b',label=labelNom)
+plt.plot(t1[76000:96000],trReffilt1.data[76000:96000],'r',label=labelRef)
+#plt.title('difference in response removed data')
+plt.title('response removed data,zoomed, highpass 1 Hz')
 plt.ylabel('Displacement')
 #plt.ylabel('Acceleration [m/s^2]')
 plt.xlabel('Time [s]')
