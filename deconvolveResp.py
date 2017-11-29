@@ -267,60 +267,78 @@ t1=(np.linspace(0,(trNom.data.size/samprate),num=trNom.data.size))
 #plot the response removed waveforms
 fig =plt.figure(figsize=(11,8.5))
 fig.suptitle('Data comparison')
-fig.subplots_adjust(wspace=0.11,hspace=0.17)
+fig.subplots_adjust(wspace=0.11,hspace=0.45)
 
 # first plot up the raw data
-rdata=fig.add_subplot(421)
+rdata=fig.add_subplot(621)
 rdata.plot(t1,stRefRaw[0],'r',label=labelRef)
 rdata.plot(t1,stNomRaw[0],'b',label=labelNom)
 rdata.set_ylabel('Raw Data, \nCounts')
 rdata.set_title('Full Time Series')
-rdata.legend()
 
-rdataZ=fig.add_subplot(422)
+rdataZ=fig.add_subplot(622)
 rdataZ.plot(t1[76000:96000],stRefRaw[0][76000:96000],'r',label=labelRef)
 rdataZ.plot(t1[76000:96000],stNomRaw[0][76000:96000],'b',label=labelNom)
 rdataZ.set_title('Zoomed Time Series')
 rdataZ.tick_params(labelleft='off')
-rdataZ.legend()
+
 ## now plot up resp removed data
-noResp=fig.add_subplot(423)
+noResp=fig.add_subplot(623)
 noResp.plot(t1,trNom.data,'b',label=labelNom)
 noResp.plot(t1,trRef.data,'r',label=labelRef)
 noResp.set_ylabel('Resp removed, \nDisplacement')
 
-noRespZ=fig.add_subplot(424)
+noRespZ=fig.add_subplot(624)
+noRespZ.yaxis.set_label_position("right")
 noRespZ.plot(t1[76000:96000],trNom.data[76000:96000],'b',label=labelNom)
 noRespZ.plot(t1[76000:96000],trRef.data[76000:96000],'r',label=labelRef)
-noRespZ.ticklabel_format(style='sci',axis='y')
-from matplotlib.ticker import FormatStrFormatter
-noRespZ.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
-#jfrom matplotlib.ticker import EngFormatter
-#formatter1= EngFormatter(places=1)
-#jformatter1= EngFormatter(places=1, sep='\N{THIN SPACE}')
-#jnoRespZ.xaxis.set_major_formatter(formatter1)
-#noRespZ.tick_params(labelleft='off')
+
 ## now the .1 hz filtered data
-filtp1=fig.add_subplot(425)
+filtp1=fig.add_subplot(625)
 filtp1.plot(t1,trNomfiltp1.data,'b',label=labelNom)
 filtp1.plot(t1,trReffiltp1.data,'r',label=labelRef)
 filtp1.set_ylabel('Filtered,0.1 Hz, \nDisplacement')
 
-filtp1Z=fig.add_subplot(426)
+filtp1Z=fig.add_subplot(626)
 filtp1Z.plot(t1[76000:96000],trNomfiltp1.data[76000:96000],'b',label=labelNom)
 filtp1Z.plot(t1[76000:96000],trReffiltp1.data[76000:96000],'r',label=labelRef)
 #filtp1Z.tick_params(labelleft='off')
+
 ## now the 1 hz filtered data
-filt1=fig.add_subplot(427)
+filt1=fig.add_subplot(627)
 filt1.plot(t1,trNomfilt1.data,'b',label=labelNom)
 filt1.plot(t1,trReffilt1.data,'r',label='highpass 10 s')
 filt1.set_ylabel('Filtered,1 Hz, \nDisplacement')
-filt1Z=fig.add_subplot(428)
 
+filt1Z=fig.add_subplot(628)
 filt1Z.plot(t1[80000:81000],trNomfilt1.data[80000:81000],'b',label=labelNom)
 filt1Z.plot(t1[80000:81000],trReffilt1.data[80000:81000],'r',label=labelRef)
-filt1.set_xlabel('Time [s]')
-filt1Z.set_xlabel('Time [s]')
+
+## now the 10 hz filtered data
+filt10=fig.add_subplot(629)
+filt10.plot(t1,trNomfilt10.data,'b',label=labelNom)
+filt10.plot(t1,trReffilt10.data,'r',label='highpass 10 s')
+filt10.set_ylabel('Filtered,10 Hz, \nDisplacement')
+
+filt10Z=fig.add_subplot(6,2,10)
+filt10Z.plot(t1[80000:81000],trNomfilt10.data[80000:81000],'b',label=labelNom)
+filt10Z.plot(t1[80000:81000],trReffilt10.data[80000:81000],'r',label=labelRef)
+
+## now the 10 hz filtered data
+filt100=fig.add_subplot(6,2,11)
+filt100.plot(t1,trNomfilt100.data,'b',label=labelNom)
+filt100.plot(t1,trReffilt100.data,'r',label='highpass 10 s')
+filt100.set_ylabel('Filtered,100 Hz, \nDisplacement')
+
+filt100Z=fig.add_subplot(6,2,12)
+filt100Z.plot(t1[80000:81000],trNomfilt100.data[80000:81000],'b',label=labelNom)
+filt100Z.plot(t1[80000:81000],trReffilt100.data[80000:81000],'r',label=labelRef)
+filt100.set_xlabel('Time [s]')
+filt100Z.set_xlabel('Time [s]')
+
+handles,labels = filt100.get_legend_handles_labels()
+fig.legend(handles,labels,loc='upper center',ncol=2,mode='expand')
+
 # save the figure
 string='Data_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+channel[1]+'_'+sensor[1]
 plt.subplot_tool()
