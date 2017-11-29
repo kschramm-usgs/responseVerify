@@ -32,10 +32,10 @@ print(etime.julday)
 # information about the sensors. edit before running
 samprate=200.
 network = "XX"
-station = ["TST1","TST3"]
+station = ["TST1","MOFO3"]
 channel = ["00","00"]
-component = ["EH0","EH0"]
-sensor = ["STS-2HG","GS-13"]
+component = ["EH0","EHZ"]
+sensor = ["STS-2HG","STS5-A"]
 
 labelRef="reference sensor: "+ sensor[0] + ' on ' + station[0]
 labelNom="test sensor: "+ sensor[1] + ' on ' + station[1]
@@ -221,11 +221,15 @@ plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 #filter data for plotting
 trNomfilt10=trNom.copy()
 trNomfilt10.detrend('linear') #literally picking because SAC
-trNomfilt10.taper(0.5)
+trNomfilt10.taper(0.1)
 trNomfilt10.filter("highpass",freq=0.1)
 
-#plot the response removed waveforms
+trReffilt10=trRef.copy()
+trReffilt10.detrend('linear') #literally picking because SAC
+trReffilt10.taper(0.1)
+trReffilt10.filter("highpass",freq=0.1)
 
+#plot the response removed waveforms
 #plt.figure(figsize=(11,8.5))
 plt.figure(figsize=(8.5,5))
 plt.suptitle('Data comparison')
@@ -241,16 +245,16 @@ plt.ylabel('Counts')
 plt.xlabel('Time [s]')
 plt.subplot(312)
 plt.plot(t1,trNomfilt10.data,'b',label=labelNom)
-plt.plot(t1,trRef.data,'r',label=labelRef)
+plt.plot(t1,trReffilt10.data,'r',label='highpass 10 s')
 plt.ylabel('Displacement')
 plt.xlabel('Time [s]')
-plt.title('response removed data')
+plt.title('response removed data, highpass 10s ')
 plt.subplot(313)
 #plt.plot(t1,trNom.data-trRef.data,'b',label='trace difference')
-plt.plot(t1[76000:96000],trNom.data[76000:96000],'b',label=labelNom)
-plt.plot(t1[76000:96000],trRef.data[76000:96000],'r',label=labelRef)
+plt.plot(t1[76000:96000],trNomfilt10.data[76000:96000],'b',label=labelNom)
+plt.plot(t1[76000:96000],trReffilt10.data[76000:96000],'r',label=labelRef)
 #plt.title('difference in response removed data')
-plt.title('response removed data,zoomed')
+plt.title('response removed data,zoomed, highpass 10s')
 plt.ylabel('Displacement')
 #plt.ylabel('Acceleration [m/s^2]')
 plt.xlabel('Time [s]')
