@@ -292,10 +292,13 @@ noResp.set_ylabel('Resp removed, \nDisplacement')
 noRespZ=fig.add_subplot(424)
 noRespZ.plot(t1[76000:96000],trNom.data[76000:96000],'b',label=labelNom)
 noRespZ.plot(t1[76000:96000],trRef.data[76000:96000],'r',label=labelRef)
-from matplotlib.ticker import EngFormatter
+noRespZ.ticklabel_format(style='sci',axis='y')
+from matplotlib.ticker import FormatStrFormatter
+noRespZ.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+#jfrom matplotlib.ticker import EngFormatter
 #formatter1= EngFormatter(places=1)
-formatter1= EngFormatter(places=1, sep='\N{THIN SPACE}')
-noRespZ.xaxis.set_major_formatter(formatter1)
+#jformatter1= EngFormatter(places=1, sep='\N{THIN SPACE}')
+#jnoRespZ.xaxis.set_major_formatter(formatter1)
 #noRespZ.tick_params(labelleft='off')
 ## now the .1 hz filtered data
 filtp1=fig.add_subplot(425)
