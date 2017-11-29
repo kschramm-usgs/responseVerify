@@ -32,10 +32,10 @@ print(etime.julday)
 # information about the sensors. edit before running
 samprate=200.
 network = "XX"
-station = ["TST1","MOFO3"]
-channel = ["00","00"]
+station = ["TST1","GSN4"]
+channel = ["00","10"]
 component = ["EH0","EHZ"]
-sensor = ["STS-2HG","STS5-A"]
+sensor = ["STS-2HG","STS-2HG"]
 
 labelRef="reference sensor: "+ sensor[0] + ' on ' + station[0]
 labelNom="test sensor: "+ sensor[1] + ' on ' + station[1]
@@ -304,6 +304,8 @@ filtp1Z.plot(t1[76000:96000],trNomfiltp1.data[76000:96000],'b',label=labelNom)
 filtp1Z.plot(t1[76000:96000],trReffiltp1.data[76000:96000],'r',label=labelRef)
 #filtp1Z.tick_params(labelleft='off')
 
+s1=80000
+s2=80100
 ## now the 1 hz filtered data
 filt1=fig.add_subplot(627)
 filt1.plot(t1,trNomfilt1.data,'b',label=labelNom)
@@ -311,8 +313,8 @@ filt1.plot(t1,trReffilt1.data,'r',label='highpass 10 s')
 filt1.set_ylabel('Filtered,1 Hz, \nDisplacement')
 
 filt1Z=fig.add_subplot(628)
-filt1Z.plot(t1[80000:81000],trNomfilt1.data[80000:81000],'b',label=labelNom)
-filt1Z.plot(t1[80000:81000],trReffilt1.data[80000:81000],'r',label=labelRef)
+filt1Z.plot(t1[s1:s2],trNomfilt1.data[s1:s2],'b',label=labelNom)
+filt1Z.plot(t1[s1:s2],trReffilt1.data[s1:s2],'r',label=labelRef)
 
 ## now the 10 hz filtered data
 filt10=fig.add_subplot(629)
@@ -321,8 +323,8 @@ filt10.plot(t1,trReffilt10.data,'r',label='highpass 10 s')
 filt10.set_ylabel('Filtered,10 Hz, \nDisplacement')
 
 filt10Z=fig.add_subplot(6,2,10)
-filt10Z.plot(t1[80000:81000],trNomfilt10.data[80000:81000],'b',label=labelNom)
-filt10Z.plot(t1[80000:81000],trReffilt10.data[80000:81000],'r',label=labelRef)
+filt10Z.plot(t1[s1:s2],trNomfilt10.data[s1:s2],'b',label=labelNom)
+filt10Z.plot(t1[s1:s2],trReffilt10.data[s1:s2],'r',label=labelRef)
 
 ## now the 10 hz filtered data
 filt100=fig.add_subplot(6,2,11)
@@ -331,8 +333,8 @@ filt100.plot(t1,trReffilt100.data,'r',label='highpass 10 s')
 filt100.set_ylabel('Filtered,50 Hz, \nDisplacement')
 
 filt100Z=fig.add_subplot(6,2,12)
-filt100Z.plot(t1[80000:81000],trNomfilt100.data[80000:81000],'b',label=labelNom)
-filt100Z.plot(t1[80000:81000],trReffilt100.data[80000:81000],'r',label=labelRef)
+filt100Z.plot(t1[s1:s2],trNomfilt100.data[s1:s2],'b',label=labelNom)
+filt100Z.plot(t1[s1:s2],trReffilt100.data[s1:s2],'r',label=labelRef)
 filt100.set_xlabel('Time [s]')
 filt100Z.set_xlabel('Time [s]')
 
