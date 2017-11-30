@@ -309,7 +309,7 @@ filtp1Z.plot(t1[76000:96000],trReffiltp1.data[76000:96000],'r',label=labelRef)
 #filtp1Z.tick_params(labelleft='off')
 
 s1=80000
-s2=80100
+s2=81000
 ## now the 1 hz filtered data
 filt1=fig.add_subplot(627)
 filt1.plot(t1,trNomfilt1.data,'b',label=labelNom)
@@ -320,6 +320,8 @@ filt1Z=fig.add_subplot(628)
 filt1Z.plot(t1[s1:s2],trNomfilt1.data[s1:s2],'b',label=labelNom)
 filt1Z.plot(t1[s1:s2],trReffilt1.data[s1:s2],'r',label=labelRef)
 
+s1=80000
+s2=80100
 ## now the 10 hz filtered data
 filt10=fig.add_subplot(629)
 filt10.plot(t1,trNomfilt10.data,'b',label=labelNom)
@@ -330,7 +332,7 @@ filt10Z=fig.add_subplot(6,2,10)
 filt10Z.plot(t1[s1:s2],trNomfilt10.data[s1:s2],'b',label=labelNom)
 filt10Z.plot(t1[s1:s2],trReffilt10.data[s1:s2],'r',label=labelRef)
 
-## now the 10 hz filtered data
+## now the 100 hz filtered data
 filt100=fig.add_subplot(6,2,11)
 filt100.plot(t1,trNomfilt100.data,'b',label=labelNom)
 filt100.plot(t1,trReffilt100.data,'r',label=labelRef)
