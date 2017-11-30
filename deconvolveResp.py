@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import glob
 
+#adding this to read ouput from xmax
 def ReadTwoColumnFile(file_name):
 # from stackoverflow
    with open(file_name, 'r') as mydat:
@@ -267,7 +268,7 @@ t1=(np.linspace(0,(trNom.data.size/samprate),num=trNom.data.size))
 #plot the response removed waveforms
 fig =plt.figure(figsize=(11,8.5))
 #fig.suptitle('Data comparison')
-fig.subplots_adjust(wspace=0.11,hspace=0.45)
+fig.subplots_adjust(wspace=0.15,hspace=0.45)
 
 # first plot up the raw data
 rdata=fig.add_subplot(621)
@@ -287,11 +288,14 @@ noResp=fig.add_subplot(623)
 noResp.plot(t1,trNom.data,'b',label=labelNom)
 noResp.plot(t1,trRef.data,'r',label=labelRef)
 noResp.set_ylabel('Resp removed, \nDisplacement')
+from matplotlib.ticker import FormatStrFormatter
+noResp.yaxis.set_major_formatter(FormatStrFormatter('%g'))
 
 noRespZ=fig.add_subplot(624)
 noRespZ.yaxis.set_label_position("right")
 noRespZ.plot(t1[76000:96000],trNom.data[76000:96000],'b',label=labelNom)
 noRespZ.plot(t1[76000:96000],trRef.data[76000:96000],'r',label=labelRef)
+noRespZ.yaxis.set_major_formatter(FormatStrFormatter('%g'))
 
 ## now the .1 hz filtered data
 filtp1=fig.add_subplot(625)
@@ -309,7 +313,7 @@ s2=80100
 ## now the 1 hz filtered data
 filt1=fig.add_subplot(627)
 filt1.plot(t1,trNomfilt1.data,'b',label=labelNom)
-filt1.plot(t1,trReffilt1.data,'r',label='highpass 10 s')
+filt1.plot(t1,trReffilt1.data,'r',label=labelRef)
 filt1.set_ylabel('Filtered,1 Hz, \nDisplacement')
 
 filt1Z=fig.add_subplot(628)
@@ -319,7 +323,7 @@ filt1Z.plot(t1[s1:s2],trReffilt1.data[s1:s2],'r',label=labelRef)
 ## now the 10 hz filtered data
 filt10=fig.add_subplot(629)
 filt10.plot(t1,trNomfilt10.data,'b',label=labelNom)
-filt10.plot(t1,trReffilt10.data,'r',label='highpass 10 s')
+filt10.plot(t1,trReffilt10.data,'r',label=labelRef)
 filt10.set_ylabel('Filtered,10 Hz, \nDisplacement')
 
 filt10Z=fig.add_subplot(6,2,10)
@@ -329,7 +333,7 @@ filt10Z.plot(t1[s1:s2],trReffilt10.data[s1:s2],'r',label=labelRef)
 ## now the 10 hz filtered data
 filt100=fig.add_subplot(6,2,11)
 filt100.plot(t1,trNomfilt100.data,'b',label=labelNom)
-filt100.plot(t1,trReffilt100.data,'r',label='highpass 10 s')
+filt100.plot(t1,trReffilt100.data,'r',label=labelRef)
 filt100.set_ylabel('Filtered,50 Hz, \nDisplacement')
 
 filt100Z=fig.add_subplot(6,2,12)
