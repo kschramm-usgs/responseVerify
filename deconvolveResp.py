@@ -223,7 +223,7 @@ plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 trNomfiltp1=trNom.copy()
 trNomfiltp1.detrend('linear') #literally picking because SAC
 trNomfiltp1.taper(0.1)
-trNomfiltp1.filter("highpass",freq=0.1)
+trNomfiltp1.filter("highpass",freq=0.1,zerophase='True')
 
 trNomfilt1=trNom.copy()
 trNomfilt1.detrend('linear') #literally picking because SAC
@@ -243,7 +243,7 @@ trNomfilt100.filter("highpass",freq=50.)
 trReffiltp1=trRef.copy()
 trReffiltp1.detrend('linear') #literally picking because SAC
 trReffiltp1.taper(0.1)
-trReffiltp1.filter("highpass",freq=0.1)
+trReffiltp1.filter("highpass",freq=0.1,zerophase='True')
 
 trReffilt1=trRef.copy()
 trReffilt1.detrend('linear') #literally picking because SAC
