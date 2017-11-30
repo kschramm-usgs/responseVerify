@@ -165,10 +165,11 @@ plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 
 # define a few things for the spectral calculations
-nsegments=4.
+#nsegments=4.
+nsegments=1.
 trLength=trRef.data.size
 print(trLength)
-po2=np.log(trLength/nsegments)
+po2=np.log(trLength)
 print('power of 2: '+str(po2))
 print(trLength/nsegments)
 pad=np.power(2,int(np.ceil(po2)))
