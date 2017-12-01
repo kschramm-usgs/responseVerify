@@ -23,12 +23,10 @@ def ReadTwoColumnFile(file_name):
 
 stime=UTCDateTime('2017-319T21:3900.0Z')
 etime=UTCDateTime('2017-319T21:5000.0Z')
-#etime=stime+10000
 doy='319'
 
 print(stime.julday)
 print(etime.julday)
-
 
 # information about the sensors. edit before running
 samprate=200.
@@ -46,12 +44,6 @@ print(respFile)
 fileName=['/msd/'+network+'_'+station[0]+'/2017/'+doy+'/'+channel[0]+'_'+component[0]+'.512.seed',
 '/msd/'+network+'_'+station[1]+'/2017/'+doy+'/'+channel[1]+'_'+component[1]+'.512.seed']
 print(fileName[0])
-
-#respFile=['RESP.XX.TST1.00.EH0','STS-1_Q330HR_BH_20']
-# should be able to build resp file name
-#respFile=['responses/RESP.XX.TST1.00.EH0','responses/RESP.XX.TST1.10.EH0']
-#respFile=['responses/RESP.XX.TST1.00.BH0','responses/RESP.XX.MOFO3.00.BHZ']
-#fileName=['/msd/XX_TST1/2017/323/00_BH0.512.seed','/msd/XX_MOFO3/2017/323/00_BHZ.512.seed']
 
 # read in data streams
 st = Stream()
@@ -92,15 +84,14 @@ print('removed nom response')
 
 # define a few things for the fft calculation
 trLength=trRefAcc.data.size
-print('trace length:i '+str(trLength))
 po2=trLength.bit_length()
-print('FFT power of 2: '+str(po2))
 pad=np.power(2,int(np.ceil(po2)+1))
+print('trace length: '+str(trLength))
+print('FFT power of 2: '+str(po2))
 print('FFT padding length: '+str(pad))
-ivl=1/samprate
-#
+
 # need the fft to look at the amplitude and phase going into the PSD
-# use acceleration
+
 fftRef=np.fft.fft(trRefAcc.data,n=pad)
 fftRefFreq=np.fft.fftfreq(pad,d=ivl)
 fftRefMag=np.absolute(fftRef)
@@ -119,15 +110,16 @@ deltaPha=fftRefPha-fftNomPha
 plt.figure(figsize=(8.5,5))
 plt.suptitle('FFT amplitude')
 plt.subplot(211)
-plt.loglog(1/fftNomFreq,fftNomMag,'b',label=labelRef )
-plt.loglog(1/fftRefFreq,fftRefMag,'r',label=labelNom)
+plt.semilogx(1/fftNomFreq,20*np.log10(fftNomMag),'b',label=labelRef )
+plt.semilogx(1/fftRefFreq,20*np.log10(fftRefMag),'r',label=labelNom)
 plt.grid(True, which='both')
 plt.legend()
 plt.xlabel('Period [seconds]')
 plt.ylabel('Magnitude \n (acceleration)')
 plt.subplot(212)
 plt.grid(True, which='both')
-plt.semilogx(1/fftNomFreq,(deltaMag),'g')
+plt.semilogx(1/fftNomFreq,(deltaMag),'g',label='difference')
+plt.legend()
 plt.xlabel('Period [seconds]')
 plt.ylabel('Magnitude difference \n of log values')
 string='Magnitude_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+channel[1]+'_'+sensor[1]
@@ -145,7 +137,8 @@ plt.ylabel('Phase [degrees]')
 plt.legend()
 plt.subplot(212)
 plt.grid(True, which='both')
-plt.semilogx(1/fftNomFreq,deltaPha,'g')
+plt.semilogx(1/fftNomFreq,deltaPha,'g',label='difference')
+plt.legend()
 plt.xlabel('Period [seconds]')
 plt.ylabel('Phase difference')
 string='Phase_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+channel[1]+'_'+sensor[1]
@@ -161,10 +154,10 @@ nfft=int(pad)/nsegments
 overlap=int(3*nfft//4)
 ivl=1/samprate
 
-print(trLength)
+print('PSD length: '+str(trLength))
 print('power of 2: '+str(po2))
-print(trLength/nsegments)
-print(pad)
+print('length/nsegments: '+str(trLength/nsegments))
+print('Padding length: '+str(pad))
 print('Nfft: '+str(nfft))
 print('overlap: '+str(overlap))
 
@@ -172,17 +165,14 @@ print('overlap: '+str(overlap))
 
 PSDfreqs, PSDRef = signal.welch(trRefAcc.data, return_onesided=True, fs=samprate, nperseg=nfft, noverlap=overlap, scaling='density')
 PSDfreqs, PSDNom = signal.welch(trNomAcc.data, return_onesided=True, fs=samprate, nperseg=nfft, noverlap=overlap, scaling='density')
+
 #make sure to subtract decibel values
 deltaPSD = 10*np.log10(PSDRef)-10*np.log10(PSDNom)
 
 #plot it up
-
-#plt.figure(figsize=(11,8.5))
 plt.figure(figsize=(8.5,5))
 plt.title('PSD in displacement')
 plt.subplot(211)
-#plt.semilogx(1/PSDfreqs,(PSDNom),'b',label=labelNom)
-#plt.semilogx(1/PSDfreqs,(PSDRef),'r',label=labelRef)
 plt.semilogx(1/PSDfreqs,10*np.log10(PSDNom),'b',label=labelNom)
 plt.semilogx(1/PSDfreqs,10*np.log10(PSDRef),'r',label=labelRef)
 print(len(PSDNom))
