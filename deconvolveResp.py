@@ -90,7 +90,7 @@ trNomAcc=stNomAcc[0]
 
 print('removed nom response')
 
-# define a few things for the spectral calculations 
+# define a few things for the fft calculation
 trLength=trRefAcc.data.size
 print('trace length:i '+str(trLength))
 po2=trLength.bit_length()/2.
@@ -153,7 +153,7 @@ plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 
 # define a few things for the spectral calculations
-nsegments=2.
+nsegments=4.
 trLength=trRefAcc.data.size
 po2=trLength.bit_length()
 pad=np.power(2,int(np.ceil(po2)))
