@@ -21,7 +21,7 @@ def ReadTwoColumnFile(file_name):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 stime=UTCDateTime('2017-319T21:4000.0Z')
-etime=UTCDateTime('2017-319T21:5100.0Z')
+etime=UTCDateTime('2017-319T21:5000.0Z')
 #etime=stime+10000
 
 print(stime.julday)

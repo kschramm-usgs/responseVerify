@@ -20,7 +20,7 @@ def ReadTwoColumnFile(file_name):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-stime=UTCDateTime('2017-319T21:3900.0Z')
+stime=UTCDateTime('2017-319T21:4000.0Z')
 etime=UTCDateTime('2017-319T21:5000.0Z')
 #etime=stime+10000
 doy='319'
