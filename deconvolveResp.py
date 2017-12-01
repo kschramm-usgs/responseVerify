@@ -3,6 +3,7 @@ from obspy import UTCDateTime
 from obspy.core import *
 from obspy import read
 from scipy import signal
+from matplotlib.ticker import FormatStrFormatter
 import numpy as np
 import matplotlib.pyplot as plt
 import glob
@@ -21,7 +22,7 @@ def ReadTwoColumnFile(file_name):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-stime=UTCDateTime('2017-319T21:3900.0Z')
+stime=UTCDateTime('2017-319T21:4000.0Z')
 etime=UTCDateTime('2017-319T21:5000.0Z')
 doy='319'
 
@@ -86,6 +87,7 @@ print('removed nom response')
 trLength=trRefAcc.data.size
 po2=trLength.bit_length()
 pad=np.power(2,int(np.ceil(po2)+1))
+ivl=1/samprate
 print('trace length: '+str(trLength))
 print('FFT power of 2: '+str(po2))
 print('FFT padding length: '+str(pad))
@@ -199,6 +201,7 @@ plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 #plt.ylabel('Power spectral density \n [dB relative to 1 m/s^2]')
 #
 #filter data for plotting
+trNom.data=-1.*trNom.data # for the GS-13 which has reversed polarity
 trNomfiltp1=trNom.copy()
 trNomfiltp1.detrend('linear') #literally picking because SAC
 trNomfiltp1.taper(0.1)
@@ -267,7 +270,6 @@ noResp=fig.add_subplot(623)
 noResp.plot(t1,trNom.data,'b',label=labelNom)
 noResp.plot(t1,trRef.data,'r',label=labelRef)
 noResp.set_ylabel('Resp removed, \nDisplacement')
-from matplotlib.ticker import FormatStrFormatter
 noResp.yaxis.set_major_formatter(FormatStrFormatter('%g'))
 
 noRespZ=fig.add_subplot(624)
