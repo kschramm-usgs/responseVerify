@@ -93,10 +93,10 @@ print('removed nom response')
 # define a few things for the fft calculation
 trLength=trRefAcc.data.size
 print('trace length:i '+str(trLength))
-po2=trLength.bit_length()/2.
-print('power of 2: '+str(po2))
+po2=trLength.bit_length()
+print('FFT power of 2: '+str(po2))
 pad=np.power(2,int(np.ceil(po2)+1))
-print('padding length: '+str(pad))
+print('FFT padding length: '+str(pad))
 ivl=1/samprate
 #
 # need the fft to look at the amplitude and phase going into the PSD
