@@ -58,7 +58,6 @@ st = Stream()
 
 st=read(fileName[0],starttime=stime, endtime=etime)
 stRef=st.copy()
-#st.plot()
 stRefAcc=stRef.copy()
 stRefRaw=stRef.copy()
 
@@ -78,9 +77,6 @@ refResp = {'filename':respf, 'units':'ACC'}
 stRefAcc.simulate(paz_remove=None,pre_filt=prefilt,seedresp=refResp,pitsasim=False,sacsim=True)
 trRefAcc=stRefAcc[0]
 
-#plt.figure()
-#plt.plot(trRef.data)
-#plt.plot(trRefAcc.data)
 print('removed ref response')
 
 respf = respFile[1]
@@ -97,7 +93,7 @@ print('removed nom response')
 # define a few things for the spectral calculations 
 trLength=trRefAcc.data.size
 print('trace length:i '+str(trLength))
-po2=trLength.bit_length()
+po2=trLength.bit_length()/2.
 print('power of 2: '+str(po2))
 pad=np.power(2,int(np.ceil(po2)+1))
 print('padding length: '+str(pad))
@@ -105,19 +101,19 @@ ivl=1/samprate
 #
 # need the fft to look at the amplitude and phase going into the PSD
 # use acceleration
-fftRef = np.fft.fft(trRefAcc.data,n=pad)
+fftRef=np.fft.fft(trRefAcc.data,n=pad)
 fftRefFreq=np.fft.fftfreq(pad,d=ivl)
 fftRefMag=np.absolute(fftRef)
 fftRefPha=np.unwrap(np.degrees(np.arctan2(fftRef.imag,fftRef.real)))
 
-fftNom = np.fft.fft(trNomAcc.data,n=pad)
+fftNom=np.fft.fft(trNomAcc.data,n=pad)
 fftNomFreq=np.fft.fftfreq(pad,d=ivl)
 fftNomMag=np.absolute(fftNom)
 fftNomPha=np.unwrap(np.degrees(np.arctan2(fftNom.imag,fftNom.real)))
 
 # want to look at the differences in the amplitude and phase
-deltaMag = np.log10(fftRefMag)-np.log10(fftNomMag)
-deltaPha = fftRefPha-fftNomPha
+deltaMag=np.log10(fftRefMag)-np.log10(fftNomMag)
+deltaPha=fftRefPha-fftNomPha
 
 #need to plot the results from the FFT
 plt.figure(figsize=(8.5,5))
@@ -131,21 +127,13 @@ plt.xlabel('Period [seconds]')
 plt.ylabel('Magnitude \n (acceleration)')
 plt.subplot(212)
 plt.grid(True, which='both')
-#plt.loglog(1/fftNomFreq,deltaMag,'g')
 plt.semilogx(1/fftNomFreq,(deltaMag),'g')
 plt.xlabel('Period [seconds]')
 plt.ylabel('Magnitude difference \n of log values')
-#plt.subplot(313)
-#plt.grid(True, which='both')
-##plt.loglog(1/fftNomFreq,deltaMag,'g')
-#plt.semilogx(1/fftNomFreq,np.log10(np.abs(deltaMag)),'g')
-#plt.xlabel('Period [seconds]')
-#plt.ylabel('Magnitude difference')
 string='Magnitude_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+channel[1]+'_'+sensor[1]
 plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 
-#plt.figure(figsize=(11,8.5))
 plt.figure(figsize=(8.5,5))
 plt.suptitle('FFT phase')
 plt.subplot(211)
@@ -165,20 +153,20 @@ plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 
 # define a few things for the spectral calculations
-#nsegments=4.
-nsegments=1.
-trLength=trRef.data.size
+nsegments=2.
+trLength=trRefAcc.data.size
+po2=trLength.bit_length()
+pad=np.power(2,int(np.ceil(po2)))
+nfft=int(pad)/nsegments
+overlap=int(3*nfft//4)
+ivl=1/samprate
+
 print(trLength)
-po2=np.log(trLength)
 print('power of 2: '+str(po2))
 print(trLength/nsegments)
-pad=np.power(2,int(np.ceil(po2)))
 print(pad)
-nfft=int(pad)
-print(nfft)
-overlap=int(3*nfft//4)
-print(overlap)
-ivl=1/samprate
+print('Nfft: '+str(nfft))
+print('overlap: '+str(overlap))
 
 # calculate the PSD
 
