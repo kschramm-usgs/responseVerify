@@ -220,6 +220,7 @@ plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 #plt.ylabel('Power spectral density \n [dB relative to 1 m/s^2]')
 #
 #filter data for plotting
+trNom.data=-1*trNom.data
 trNomfiltp1=trNom.copy()
 trNomfiltp1.detrend('linear') #literally picking because SAC
 trNomfiltp1.taper(0.1)
