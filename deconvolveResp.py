@@ -22,20 +22,20 @@ def ReadTwoColumnFile(file_name):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-stime=UTCDateTime('2017-335T17:1200.0Z')
-etime=UTCDateTime('2017-335T17:1300.0Z')
-doy='335'
+stime=UTCDateTime('2017-071T07:030.0Z')
+etime=UTCDateTime('2017-071T07:040.0Z')
+doy='071'
 
 print(stime.julday)
 print(etime.julday)
 
 # information about the sensors. edit before running
-samprate=20.
+samprate=100.
 network = ["XX","IU"] 
 station = ["TST1","ANMO"]
-channel = ["00","00"]
-component = ["BH0","BHZ"]
-sensor = ["STS-2HG","KS54000"]
+channel = ["00","10"]
+component = ["HH0","HHZ"]
+sensor = ["STS2-HG","T120"]
 # set x-axis limits, in period, for the magnitude and phase plots
 xlimits=[0.01,10]
 
@@ -241,10 +241,10 @@ trNomfilt10.detrend('linear') #literally picking because SAC
 trNomfilt10.taper(0.1)
 trNomfilt10.filter("highpass",freq=10.)
 
-#trNomfilt100=trNom.copy()
-#trNomfilt100.detrend('linear') #literally picking because SAC
-#trNomfilt100.taper(0.1)
-#trNomfilt100.filter("highpass",freq=50.)
+trNomfilt100=trNom.copy()
+trNomfilt100.detrend('linear') #literally picking because SAC
+trNomfilt100.taper(0.1)
+trNomfilt100.filter("highpass",freq=50.)
 
 trReffiltp1=trRef.copy()
 trReffiltp1.detrend('linear') #literally picking because SAC
@@ -261,10 +261,10 @@ trReffilt10.detrend('linear') #literally picking because SAC
 trReffilt10.taper(0.1)
 trReffilt10.filter("highpass",freq=10.)
 
-#trReffilt100=trRef.copy()
-#rReffilt100.detrend('linear') #literally picking because SAC
-#rReffilt100.taper(0.1)
-#rReffilt100.filter("highpass",freq=50.)
+trReffilt100=trRef.copy()
+trReffilt100.detrend('linear') #literally picking because SAC
+trReffilt100.taper(0.1)
+trReffilt100.filter("highpass",freq=50.)
 
 #get the x-axis in seconds
 print(trNom.stats['sampling_rate'])
