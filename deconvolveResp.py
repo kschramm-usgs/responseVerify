@@ -191,6 +191,7 @@ plt.semilogx(1/fftNomFreq,(deltaMag),'g',label='difference')
 plt.legend()
 plt.xlabel('Period [seconds]')
 plt.ylabel('Magnitude difference \n of log values')
+plt.xlim([0.01,10])
 string='Magnitude_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+channel[1]+'_'+sensor[1]
 plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
