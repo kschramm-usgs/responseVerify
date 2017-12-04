@@ -110,11 +110,18 @@ deltaPha=fftRefPha-fftNomPha
 
 
 # define a few things for the spectral calculations
+#nsegments=4.
+#trLength=trRefAcc.data.size
+#po2=(trLength.bit_length()/nsegments)
+#pad=np.power(2,int(np.ceil(po2)))
+#nfft=int(pad)/nsegments
+#overlap=int(3*nfft//4)
+#ivl=1/samprate
 nsegments=4.
 trLength=trRefAcc.data.size
-po2=trLength.bit_length()
+po2=np.log(trLength/nsegments)
 pad=np.power(2,int(np.ceil(po2)))
-nfft=int(pad)/nsegments
+nfft=int(pad)
 overlap=int(3*nfft//4)
 ivl=1/samprate
 
@@ -167,11 +174,6 @@ plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 #want to make sure that the x-axis limits match the PSD as the FFT is taken on
 #the entire window
 #should likely do something fancy, but for now will just xlim.
-maxFreq=np.amax(PSDfreqs)
-print(maxFreq)
-minFreq=np.amin(PSDfreqs)
-print(minFreq)
-min(enumerate(fftNomFreq), key=lambda x: abs(x[1]-np.amin(PSDFreqs)))
 
 plt.figure(figsize=(8.5,5))
 plt.suptitle('FFT amplitude')
@@ -182,6 +184,7 @@ plt.grid(True, which='both')
 plt.legend()
 plt.xlabel('Period [seconds]')
 plt.ylabel('Magnitude \n (acceleration)')
+plt.xlim([0.01,10])
 plt.subplot(212)
 plt.grid(True, which='both')
 plt.semilogx(1/fftNomFreq,(deltaMag),'g',label='difference')
