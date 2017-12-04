@@ -32,10 +32,12 @@ print(etime.julday)
 # information about the sensors. edit before running
 samprate=200.
 network = "XX"
-station = ["TST1","TST3"]
+station = ["TST1","TST6"]
 channel = ["00","00"]
 component = ["EH0","EH0"]
-sensor = ["STS-2HG","GS-13"]
+sensor = ["STS-2HG","T-compact"]
+# set x-axis limits, in period, for the magnitude and phase plots
+xlimits=[0.01,10]
 
 labelRef="reference sensor: "+ sensor[0] + ' on ' + station[0]
 labelNom="test sensor: "+ sensor[1] + ' on ' + station[1]
@@ -184,14 +186,14 @@ plt.grid(True, which='both')
 plt.legend()
 plt.xlabel('Period [seconds]')
 plt.ylabel('Magnitude \n (acceleration)')
-plt.xlim([0.01,10])
+plt.xlim(xlimits)
 plt.subplot(212)
 plt.grid(True, which='both')
 plt.semilogx(1/fftNomFreq,(deltaMag),'g',label='difference')
 plt.legend()
 plt.xlabel('Period [seconds]')
 plt.ylabel('Magnitude difference \n of log values')
-plt.xlim([0.01,10])
+plt.xlim(xlimits)
 string='Magnitude_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+channel[1]+'_'+sensor[1]
 plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
@@ -205,14 +207,14 @@ plt.grid(True, which='both')
 plt.xlabel('Period [seconds]')
 plt.ylabel('Phase [degrees]')
 plt.legend()
-plt.xlim([0.01,10])
+plt.xlim(xlimits)
 plt.subplot(212)
 plt.grid(True, which='both')
 plt.semilogx(1/fftNomFreq,deltaPha,'g',label='difference')
 plt.legend()
 plt.xlabel('Period [seconds]')
 plt.ylabel('Phase difference')
-plt.xlim([0.01,10])
+plt.xlim(xlimits)
 string='Phase_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+channel[1]+'_'+sensor[1]
 plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
