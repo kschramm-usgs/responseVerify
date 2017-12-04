@@ -32,7 +32,7 @@ print(etime.julday)
 # information about the sensors. edit before running
 samprate=200.
 network = "XX"
-station = ["TST1","MOFO1"]
+station = ["TST1","MOFO2"]
 channel = ["00","00"]
 component = ["EH0","EHZ"]
 sensor = ["STS-2HG","STS-6"]
