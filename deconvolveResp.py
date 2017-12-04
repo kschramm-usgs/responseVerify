@@ -108,44 +108,6 @@ fftNomPha=np.unwrap(np.degrees(np.arctan2(fftNom.imag,fftNom.real)))
 deltaMag=np.log10(fftRefMag)-np.log10(fftNomMag)
 deltaPha=fftRefPha-fftNomPha
 
-#need to plot the results from the FFT
-plt.figure(figsize=(8.5,5))
-plt.suptitle('FFT amplitude')
-plt.subplot(211)
-plt.semilogx(1/fftNomFreq,20*np.log10(fftNomMag),'b',label=labelRef )
-plt.semilogx(1/fftRefFreq,20*np.log10(fftRefMag),'r',label=labelNom)
-plt.grid(True, which='both')
-plt.legend()
-plt.xlabel('Period [seconds]')
-plt.ylabel('Magnitude \n (acceleration)')
-plt.subplot(212)
-plt.grid(True, which='both')
-plt.semilogx(1/fftNomFreq,(deltaMag),'g',label='difference')
-plt.legend()
-plt.xlabel('Period [seconds]')
-plt.ylabel('Magnitude difference \n of log values')
-string='Magnitude_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+channel[1]+'_'+sensor[1]
-plt.savefig('pngs/'+string+'.png',format='png')
-plt.savefig('pdfs/'+string+'.pdf',format='pdf')
-
-plt.figure(figsize=(8.5,5))
-plt.suptitle('FFT phase')
-plt.subplot(211)
-plt.semilogx(1/fftNomFreq,fftNomPha,'b',label= labelNom)
-plt.semilogx(1/fftRefFreq,fftRefPha,'r',label= labelRef)
-plt.grid(True, which='both')
-plt.xlabel('Period [seconds]')
-plt.ylabel('Phase [degrees]')
-plt.legend()
-plt.subplot(212)
-plt.grid(True, which='both')
-plt.semilogx(1/fftNomFreq,deltaPha,'g',label='difference')
-plt.legend()
-plt.xlabel('Period [seconds]')
-plt.ylabel('Phase difference')
-string='Phase_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+channel[1]+'_'+sensor[1]
-plt.savefig('pngs/'+string+'.png',format='png')
-plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 
 # define a few things for the spectral calculations
 nsegments=4.
@@ -200,6 +162,55 @@ plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 #plt.ylabel('Power spectral density \n [dB relative to 1 m/s^2]')
 #
+
+#need to plot the results from the FFT
+#want to make sure that the x-axis limits match the PSD as the FFT is taken on
+#the entire window
+#should likely do something fancy, but for now will just xlim.
+maxFreq=np.amax(PSDfreqs)
+print(maxFreq)
+minFreq=np.amin(PSDfreqs)
+print(minFreq)
+min(enumerate(fftNomFreq), key=lambda x: abs(x[1]-np.amin(PSDFreqs)))
+
+plt.figure(figsize=(8.5,5))
+plt.suptitle('FFT amplitude')
+plt.subplot(211)
+plt.semilogx(1/fftNomFreq,20*np.log10(fftNomMag),'b',label=labelRef )
+plt.semilogx(1/fftRefFreq,20*np.log10(fftRefMag),'r',label=labelNom)
+plt.grid(True, which='both')
+plt.legend()
+plt.xlabel('Period [seconds]')
+plt.ylabel('Magnitude \n (acceleration)')
+plt.subplot(212)
+plt.grid(True, which='both')
+plt.semilogx(1/fftNomFreq,(deltaMag),'g',label='difference')
+plt.legend()
+plt.xlabel('Period [seconds]')
+plt.ylabel('Magnitude difference \n of log values')
+string='Magnitude_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+channel[1]+'_'+sensor[1]
+plt.savefig('pngs/'+string+'.png',format='png')
+plt.savefig('pdfs/'+string+'.pdf',format='pdf')
+
+plt.figure(figsize=(8.5,5))
+plt.suptitle('FFT phase')
+plt.subplot(211)
+plt.semilogx(1/fftNomFreq,fftNomPha,'b',label= labelNom)
+plt.semilogx(1/fftRefFreq,fftRefPha,'r',label= labelRef)
+plt.grid(True, which='both')
+plt.xlabel('Period [seconds]')
+plt.ylabel('Phase [degrees]')
+plt.legend()
+plt.subplot(212)
+plt.grid(True, which='both')
+plt.semilogx(1/fftNomFreq,deltaPha,'g',label='difference')
+plt.legend()
+plt.xlabel('Period [seconds]')
+plt.ylabel('Phase difference')
+string='Phase_'+network+'_'+station[0]+'_'+channel[0]+'_'+station[1]+'_'+channel[1]+'_'+sensor[1]
+plt.savefig('pngs/'+string+'.png',format='png')
+plt.savefig('pdfs/'+string+'.pdf',format='pdf')
+
 #filter data for plotting
 trNom.data=-1.*trNom.data # for the GS-13 which has reversed polarity
 trNomfiltp1=trNom.copy()
