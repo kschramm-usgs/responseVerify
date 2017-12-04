@@ -80,9 +80,9 @@ respf = respFile[1]
 nomResp = {'filename':respf, 'units':'DIS'}
 stNom.simulate(paz_remove=None,pre_filt=prefilt,seedresp=nomResp,pitsasim=False,sacsim=True)
 trNom=stNom[0]
-if (trNom.stats['sampling_rate'] > samprate):
-   deciFactor=trNom.stats['sampling_rate']/samprate
-   tr.decimate(factor=deciFact, strict_length=False)
+#if (trNom.stats['sampling_rate'] > samprate):
+#   deciFactor=trNom.stats['sampling_rate']/samprate
+#trNom.decimate(factor=2) 
 
 nomResp = {'filename':respf, 'units':'ACC'}
 stNomAcc.simulate(paz_remove=None,pre_filt=prefilt,seedresp=nomResp,pitsasim=False,sacsim=True)
@@ -338,27 +338,27 @@ filt1Z.plot(t1[s1:s2],trReffilt1.data[s1:s2],'r',label=labelRef)
 
 s1=2200
 s2=2400
-## now the 10 hz filtered data
+### now the 10 hz filtered data
 filt10=fig.add_subplot(629)
 filt10.plot(t1,trNomfilt10.data,'b',label=labelNom)
 filt10.plot(t1,trReffilt10.data,'r',label=labelRef)
 filt10.set_ylabel('Filtered,10 Hz, \nDisplacement')
-
+#
 filt10Z=fig.add_subplot(6,2,10)
 filt10Z.plot(t1[s1:s2],trNomfilt10.data[s1:s2],'b',label=labelNom)
 filt10Z.plot(t1[s1:s2],trReffilt10.data[s1:s2],'r',label=labelRef)
 
-## now the 100 hz filtered data
-#filt100=fig.add_subplot(6,2,11)
-#filt100.plot(t1,trNomfilt100.data,'b',label=labelNom)
-#filt100.plot(t1,trReffilt100.data,'r',label=labelRef)
-#filt100.set_ylabel('Filtered,50 Hz, \nDisplacement')
+# now the 100 hz filtered data
+filt100=fig.add_subplot(6,2,11)
+filt100.plot(t1,trNomfilt100.data,'b',label=labelNom)
+filt100.plot(t1,trReffilt100.data,'r',label=labelRef)
+filt100.set_ylabel('Filtered,50 Hz, \nDisplacement')
 #
-#filt100Z=fig.add_subplot(6,2,12)
-#filt100Z.plot(t1[s1:s2],trNomfilt100.data[s1:s2],'b',label=labelNom)
-#filt100Z.plot(t1[s1:s2],trReffilt100.data[s1:s2],'r',label=labelRef)
-#filt100.set_xlabel('Time [s]')
-#filt100Z.set_xlabel('Time [s]')
+filt100Z=fig.add_subplot(6,2,12)
+filt100Z.plot(t1[s1:s2],trNomfilt100.data[s1:s2],'b',label=labelNom)
+filt100Z.plot(t1[s1:s2],trReffilt100.data[s1:s2],'r',label=labelRef)
+filt100.set_xlabel('Time [s]')
+filt100Z.set_xlabel('Time [s]')
 
 handles,labels = filt100.get_legend_handles_labels()
 fig.legend(handles,labels,loc='upper center',ncol=2)
