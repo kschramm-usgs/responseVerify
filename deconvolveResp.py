@@ -31,11 +31,11 @@ print(etime.julday)
 
 # information about the sensors. edit before running
 samprate=100.
-network = ["XX","IU"] 
-station = ["TST1","ANMO"]
-channel = ["00","10"]
-component = ["HH0","HHZ"]
-sensor = ["STS2-HG","T120"]
+network = ["XX","XX"] 
+station = ["ENG7","ENG6"]
+channel = ["10","10"]
+component = ["EH0","EH0"]
+sensor = ["Episensor","T120"]
 # set x-axis limits, in period, for the magnitude and phase plots
 xlimits=[0.01,10]
 
