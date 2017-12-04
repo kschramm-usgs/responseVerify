@@ -220,7 +220,7 @@ plt.savefig('pngs/'+string+'.png',format='png')
 plt.savefig('pdfs/'+string+'.pdf',format='pdf')
 
 #filter data for plotting
-trNom.data=-1.*trNom.data # for the GS-13 which has reversed polarity
+#trNom.data=-1.*trNom.data # for the GS-13 which has reversed polarity
 trNomfiltp1=trNom.copy()
 trNomfiltp1.detrend('linear') #literally picking because SAC
 trNomfiltp1.taper(0.1)
